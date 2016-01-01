@@ -96,3 +96,16 @@ runTask(function elem.cb (e) {
   });
 })
 ```
+
+### Early errors
+
+If a function has explicitly named its `this` parameter, it could be useful to throw an error when that function gets called without one. For example:
+
+```js
+function array.zip (otherArray) {
+  return array.map( (a, i) => [a, otherArray[i]] )
+}
+
+zip() //=> Throws an error on invocation,
+      //   before `array.map(...)` is run.
+```
