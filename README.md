@@ -109,3 +109,22 @@ function array.zip (otherArray) {
 zip() //=> Throws an error on invocation,
       //   before `array.map(...)` is run.
 ```
+
+## Alternate Syntax
+
+Matching the [function bind proposal](https://github.com/zenparsing/es-function-bind):
+
+```js
+function array::zip (otherArray) {
+  return array.map( (a, i) => [a, otherArray[i]] )
+}
+
+function subject::flatten () {
+  return subject.reduce( (a,b) => a.concat(b) )
+}
+
+[10,20]
+  ::zip( [1,2] )
+  ::flatten()
+//=> [10, 1, 20, 2]
+```
