@@ -6,11 +6,11 @@
 This proposal extends the `function` declaration syntax to allow for explicit naming of what is normally called `this`. Its primary use case is to play nicely with the [function bind proposal](https://github.com/zenparsing/es-function-bind), making such functions more readable. For example:
 
 ```js
-function array.zip (otherArray) {
+function zip (this array, otherArray) {
   return array.map( (a, i) => [a, otherArray[i]] )
 }
 
-function subject.flatten () {
+function flatten (this subject) {
   return subject.reduce( (a,b) => a.concat(b) )
 }
 
@@ -56,9 +56,9 @@ function process (name) {
 However, if we could **explicitly name** the object within the function parameters, we could disambiguate the two to avoid such variable shadowing, and make the above example look something more like this:
 
 ```js
-function obj.process (name) {
+function process (this obj, name) {
   obj.taskName = name;
-  doAsync(function result.callback (amount) {
+  doAsync(function callback (this result, amount) {
     result.amount += 2;
   });
 };
@@ -69,7 +69,7 @@ function obj.process (name) {
 If a function explicitly names `this`, attempting to use `this` inside the body will throw an error:
 
 ```js
-function elem.method (e) {
+function method (this elem, e) {
   console.log("Elem:", elem) // OK
   console.log("this:", this) // <-- Throws an error!
 }
@@ -78,7 +78,7 @@ function elem.method (e) {
 This behavior fits well with arrow functions, since they don't contain their own `this` in the first place.
 
 ```js
-function elem.callback (e) {
+function callback (this elem, e) {
   alert(`You entered: ${elem.value}`);
   setTimeout( () => elem.value = '', 1000 ) // OK
   setTimeout( () => this.value = '', 1000 ) // <-- Throws an error!
@@ -88,7 +88,7 @@ function elem.callback (e) {
 As normal, an inner `function` get its own `this`, which you can still choose whether or not to rename:
 
 ```js
-runTask(function elem.cb (e) {
+runTask(function cb (this elem, e) {
 
   elem.runAsyncTask(function () {
     console.log("Outer elem:", elem) // OK
@@ -102,7 +102,7 @@ runTask(function elem.cb (e) {
 If a function has explicitly named its `this` parameter, it could be useful to throw an error when that function gets called without one. For example:
 
 ```js
-function array.zip (otherArray) {
+function zip (this array, otherArray) {
   return array.map( (a, i) => [a, otherArray[i]] )
 }
 
