@@ -3,7 +3,32 @@
 > `this` isn't really a keyword, it is the natural "main" function argument in JavaScript.
 > - (@spion)[https://github.com/mindeavor/es-pipeline-operator/issues/2#issuecomment-162348536]
 
-This proposal extends the `function` declaration syntax to allow for explicit naming of what is normally called `this`. Its primary use case is to play nicely with the [function bind proposal](https://github.com/zenparsing/es-function-bind), making such functions more readable. For example:
+This proposal extends the `function` declaration syntax to allow for explicit naming of what is normally called `this`.
+
+```js
+Object.defineProperty(User.prototype, {
+  get: function fullName() { // original version
+    return `${this.firstName} ${this.lastName}`
+  },
+  configurable: true,
+})
+
+// versions use the feature of this proposal
+
+function fullName(this) { // explicit this parameter
+  return `${this.firstName} ${this.lastName}`
+}
+
+function fullName(this user) { // explicit naming `this` to `user`
+  return `${user.firstName} ${user.lastName}`
+}
+
+function fullName(this {firstName, lastName}) { // destructuring
+  return `${firstName} ${lastName}`
+}
+```
+
+Its primary use case is to play nicely with the [function bind proposal](https://github.com/zenparsing/es-function-bind), making such functions more readable. For example:
 
 ```js
 function zip (this array, otherArray) {
@@ -62,6 +87,22 @@ function process (this obj, name) {
     result.amount += 2;
   });
 };
+```
+
+Explicit `this` parameter also allow type annotation or parameter decorators be added just like normal parameter.
+
+```ts
+// Type annotation (TypeScript)
+Number.prototype.toHexString = function (this: number) {
+  return this.toString(16)
+}
+```
+
+```ts
+// Parameter decorators (future proposal)
+Number.prototype.toHexString = function (@toNumber this num) {
+  return num.toString(16) // same as Number(num).toString(16)
+}
 ```
 
 ## Behavior
