@@ -92,7 +92,7 @@ function process (this obj, name) {
 Explicit `this` parameter also allow type annotation or parameter decorators be added just like normal parameter.
 
 ```ts
-// Type annotation (TypeScript)
+// Type annotation (TypeScript, already possible today)
 Number.prototype.toHexString = function (this: number) {
   return this.toString(16)
 }
