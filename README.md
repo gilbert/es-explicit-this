@@ -105,7 +105,7 @@ Number.prototype.toHexString = function (@toNumber this num) {
 }
 ```
 
-## Behavior
+## Protect programmers by throwing as early as possible
 
 If a function explicitly names `this`, attempting to use `this` inside the body will throw an error:
 
@@ -138,7 +138,6 @@ runTask(function cb (this elem, e) {
 })
 ```
 
-### Errors
 
 If a function has explicitly named its `this` parameter, it could be useful to throw an error when that function gets called without one or used via `new`. For example:
 
