@@ -138,16 +138,6 @@ runTask(function cb (this elem, e) {
 })
 ```
 
-### Destructuring
-
-Because `this` is now explicit, you now have the option to destructure:
-
-```js
-function extract(this { foo, bar }) {
-  return { foo, bar }
-}
-```
-
 ### Errors
 
 If a function has explicitly named its `this` parameter, it could be useful to throw an error when that function gets called without one or used via `new`. For example:
