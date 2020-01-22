@@ -112,7 +112,7 @@ If a function explicitly names `this`, attempting to use `this` inside the body 
 ```js
 function method (this elem, e) {
   console.log("Elem:", elem) // OK
-  console.log("this:", this) // <-- Throws an error!
+  console.log("this:", this) // <-- Syntax error!
 }
 ```
 
@@ -122,7 +122,7 @@ This behavior fits well with arrow functions, since they don't contain their own
 function callback (this elem, e) {
   alert(`You entered: ${elem.value}`);
   setTimeout( () => elem.value = '', 1000 ) // OK
-  setTimeout( () => this.value = '', 1000 ) // <-- Throws an error!
+  setTimeout( () => this.value = '', 1000 ) // <-- Syntax error!
 }
 ```
 
