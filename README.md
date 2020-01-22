@@ -148,17 +148,19 @@ function extract(this { foo, bar }) {
 }
 ```
 
-### Early errors
+### Errors
 
-If a function has explicitly named its `this` parameter, it could be useful to throw an error when that function gets called without one. For example:
+If a function has explicitly named its `this` parameter, it could be useful to throw an error when that function gets called without one or used via `new`. For example:
 
 ```js
 function zip (this array, otherArray) {
   return array.map( (a, i) => [a, otherArray[i]] )
 }
 
-zip() //=> Throws an error on invocation,
+zip() //=> Throws a TypeError on invocation,
       //   before `array.map(...)` is run.
+
+new zip() //=> Also throws a TypeError
 ```
 
 ## Alternate Syntax
