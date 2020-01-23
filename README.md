@@ -6,7 +6,7 @@
 This proposal extends the `function` declaration syntax to allow for explicit naming of what is normally called `this`.
 
 ```js
-Object.defineProperty(User.prototype, {
+Object.defineProperty(User.prototype, "fullName", {
   get: function fullName() { // original version
     return `${this.firstName} ${this.lastName}`
   },
