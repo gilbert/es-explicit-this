@@ -179,3 +179,10 @@ function subject::flatten () {
   ::flatten()
 //=> [10, 1, 20, 2]
 ```
+
+## Prior Art
+
+- TypeScript [`this` parameter](https://www.typescriptlang.org/docs/handbook/functions.html#this-parameters)
+- Java [receiver parameter](https://stackoverflow.com/questions/24291091/why-can-we-use-this-as-an-instance-method-parameter)
+- C# [`this` modifier of the first parameter of an extension method](https://stackoverflow.com/questions/4700016/this-parameter-modifier-in-c)
+- Python/Perl: need to be specified explicitly as the first parameter of an instance method, could be named freely, though conventionally `self`
